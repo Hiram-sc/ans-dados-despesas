@@ -8,6 +8,9 @@ def extrair_zips():
 
     for arquivo in pasta_origem.iterdir():
         if arquivo.suffix == ".zip":
-            with zipfile.ZipFile(arquivo, 'r') as arquivo_zip:
-                arquivo_zip.extractall(pasta_destino)
-            print(f"{arquivo} extraido para {pasta_destino}")
+            try:
+                with zipfile.ZipFile(arquivo, 'r') as arquivo_zip:
+                    arquivo_zip.extractall(pasta_destino)
+                print(f"{arquivo.name} extraido para {pasta_destino}")
+            except zipfile.BadZipFile:
+                print(f"{arquivo.name} não é ZIP válido ou está corrompido")                

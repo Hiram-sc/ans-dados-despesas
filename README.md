@@ -4,15 +4,25 @@ Este projeto tem como base a API pública de Dados Abertos da ANS, sendo utiliza
 
 ## Processamento de arquivos
 
-Download dos arquivos ZIP dos trimestres identificados
-O processo passa por requisição da url
+### Download dos arquivos ZIP dos trimestres identificados
+
+O módulo `downloader.py` é responsável por:
+
+- acessar a API REST pública da ANS via url;
+- identificar e baixar os arquivos de Demonstrações Contábeis últimos 3 trimestres disponíveis;
+- realizar o download automático dos arquivos ZIP de Demonstrações Contábeis;
+- após o download, os arquivos ZIP são armazenados em `data/raw`.
+
 Arquivo responsável:
 - 'downloader.py'
 
 
-Extração dos arquivos
+### Extração dos arquivos
 
-O processo de extrair os arquivos se passa por data/raw como origem de arquivos e data/extracted como destino de arquivos
+O módulo `extractor.py` é responsável por:
+
+- realizar a extração dos arquivos armazenados em `data/raw` para `data/extracted`
+- O 
 Arquivo responsável:
 - 'extractor.py'
 
