@@ -1,6 +1,5 @@
 from pathlib import Path
 
-palavras_chave = ["despesa", "despesas", "eventos", "sinistros"]
 extensoes = (".csv", ".txt", ".xlsx")
 
 def encontrar_arquivos_despesas(pasta_base="data/extracted"):
@@ -12,8 +11,7 @@ def encontrar_arquivos_despesas(pasta_base="data/extracted"):
             
         nome = caminho.name.upper()
 
-        if caminho.suffix in extensoes:
-            if any(palavra.upper() in nome for palavra in palavras_chave):
+        if caminho.suffix.lower() in extensoes:
                 arquivos_despesas.append(caminho)
 
     return arquivos_despesas

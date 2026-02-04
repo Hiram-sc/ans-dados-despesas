@@ -6,7 +6,7 @@ def consolidar_arquivo(arquivos):
     pasta.mkdir(exist_ok=True)
     saida = pasta / "consolidado_despesas.csv"
 
-    with saida.open("w", encoding="utf-8") as csv_saida:
+    with saida.open("w", newline="", encoding="utf-8") as csv_saida:
         csv_writer = csv.writer(csv_saida)
         csv_writer.writerow(["CNPJ", "RazaoSocial", "Trimestre", "Ano", "ValorDespesas"])
 
@@ -15,15 +15,25 @@ def consolidar_arquivo(arquivos):
                 continue
 
             with caminho.open(newline="", encoding="utf-8") as csv_entrada:
-                dictreader = csv.DictReader(csv_entrada)
+                dictreader = csv.DictReader(csv_entrada, delimiter=";")
 
                 for linha in dictreader:
+                    linha_normalizada = {
+                        k.lower(): v for k, v in linha.items()
+                    }
+
+                    reg_ans = linha_normalizada.get("reg_ans")
+                    valor_despesas = linha_normalizada.get("vl_saldo_final")
+
+                    if not reg_ans or not valor_despesas:
+                        continue
+
                     csv_writer.writerow([
-                        linha.get("CNPJ"),
-                        linha.get("RazaoSocial") or linha.get("Razao Social"),
+                        reg_ans,
+                        "",
                         extrair_trimestre(caminho.name),
                         extrair_ano(caminho.name),
-                        linha.get("ValorDespesas") or linha.get("Valor Despesas")
+                        valor_despesas
                     ])
 
     print(f"Arquivo CSV consolidado e criado com sucesso em {saida}")
