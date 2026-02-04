@@ -22,15 +22,16 @@ def consolidar_arquivo(arquivos):
                         k.lower(): v for k, v in linha.items()
                     }
 
-                    reg_ans = linha_normalizada.get("reg_ans")
+                    cnpj = linha_normalizada.get("cnpj")
+                    razao_social = linha_normalizada.get("razaosocial") or linha_normalizada.get("razao social")
                     valor_despesas = linha_normalizada.get("vl_saldo_final")
 
-                    if not reg_ans or not valor_despesas:
+                    if not valor_despesas:
                         continue
 
                     csv_writer.writerow([
-                        reg_ans,
-                        "",
+                        cnpj,
+                        razao_social,
                         extrair_trimestre(caminho.name),
                         extrair_ano(caminho.name),
                         valor_despesas

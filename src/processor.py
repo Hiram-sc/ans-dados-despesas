@@ -12,7 +12,7 @@ def encontrar_arquivos_despesas(pasta_base="data/extracted"):
         nome = caminho.name.upper()
 
         if caminho.suffix.lower() in extensoes:
-                arquivos_despesas.append(caminho)
+            arquivos_despesas.append(caminho)
 
     return arquivos_despesas
 
